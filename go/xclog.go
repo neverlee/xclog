@@ -152,7 +152,6 @@ func (l *loggingT) printf(s severity, format string, args ...interface{}) {
 // output writes the data to the log files and releases the buffer.
 func (l *loggingT) output(s severity, header, body string, enter bool) {
 	dl, el, ol := l.getDiffLevel(), l.getErrLevel(), l.getOutLevel()
-
 	var out *os.File
 
 	if s <= dl && s <= el {
@@ -167,7 +166,7 @@ func (l *loggingT) output(s severity, header, body string, enter bool) {
 	}
 
 	l.mu.Lock()
-	fmt.Fprint(os.Stderr, header, body)
+	fmt.Fprint(out, header, body)
 	if enter {
 		os.Stderr.Write([]byte("\n"))
 	}
