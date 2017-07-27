@@ -168,7 +168,7 @@ func (l *loggingT) output(s severity, header, body string, enter bool) {
 	l.mu.Lock()
 	fmt.Fprint(out, header, body)
 	if enter {
-		os.Stderr.Write([]byte("\n"))
+		out.Write([]byte("\n"))
 	}
 
 	if s == FATAL {
