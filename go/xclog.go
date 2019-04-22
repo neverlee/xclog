@@ -232,6 +232,37 @@ func SetOutLevel(s severity) {
 	logging.setOutLevel(s)
 }
 
+func getLevelByName(name string) severity {
+	for i, n := range severityName {
+		if strings.ToUpper(name) == n {
+			return severity(i)
+		}
+	}
+	return numSeverity
+}
+
+func SetDiffLevelByName(name string) error {
+	if s := getLevelByName(name); s != numSeverity {
+		logging.setDiffLevel(s)
+		return nil
+	}
+	return fmt.Errorf("wrong level name")
+}
+func SetErrLevelByName(name string) error {
+	if s := getLevelByName(name); s != numSeverity {
+		logging.setErrLevel(s)
+		return nil
+	}
+	return fmt.Errorf("wrong level name")
+}
+func SetOutLevelByName(name string) error {
+	if s := getLevelByName(name); s != numSeverity {
+		logging.setOutLevel(s)
+		return nil
+	}
+	return fmt.Errorf("wrong level name")
+}
+
 func Fatal(args ...interface{}) {
 	logging.print(FATAL, args...)
 }
